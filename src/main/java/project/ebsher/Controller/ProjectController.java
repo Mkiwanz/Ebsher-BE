@@ -33,17 +33,22 @@ public class ProjectController {
         return projectService.findAllById(id);
     }
 
-    @PostMapping("/{projectId}")
-    public String uploadImage(@PathVariable Long projectId, @RequestParam("file") MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
-        String fileName = file.getOriginalFilename();
-        return s3Service.uploadFile(inputStream, fileName, projectId);
-    }
+//    @PostMapping("/{projectId}")
+//    public String uploadImage(@PathVariable Long projectId, @RequestParam("file") MultipartFile file) throws IOException {
+//        InputStream inputStream = file.getInputStream();
+//        String fileName = file.getOriginalFilename();
+//        return s3Service.uploadProjectImages(inputStream, fileName, projectId);
+//    }
 
-    @GetMapping("/project/{projectId}")
-    public List<byte[]> getImagesByProjectId(@PathVariable Long projectId) {
-        return s3Service.getImagesByProjectId(projectId);
+    @PostMapping("/{projectId}/images")
+    void uploadProjectImages(@RequestParam("image") MultipartFile image, @PathVariable(value = "projectId") long projectId) throws IOException {
+        s3Service.uploadProjectImages(projectId, image);
     }
+//
+//    @GetMapping("/project/{projectId}")
+//    public List<byte[]> getImagesByProjectId(@PathVariable Long projectId) {
+//        return s3Service.getImagesByProjectId(projectId);
+//    }
 }
 
 
