@@ -35,7 +35,7 @@ public class S3ServiceImpl implements S3Service {
         this.imageRepo = imageRepo;
     }
 
-    public void uploadProjectImages(long projectId, MultipartFile image) throws IOException {
+    public void uploadProjectImages(long projectId, List<MultipartFile> images) throws IOException {
 //        String key = projectId + "/" + UUID.randomUUID().toString() + fileName;
 //        ObjectMetadata metadata = new ObjectMetadata();
 //        metadata.setContentLength(inputStream.available());
@@ -43,23 +43,26 @@ public class S3ServiceImpl implements S3Service {
 //        s3client.putObject(request);
 //        return key;
 
-        String imageName = image.getOriginalFilename();
-        String imageType = image.getContentType();
-        byte[] imageBytes = image.getBytes();
+        for (MultipartFile image : images){
+            String imageName = image.getOriginalFilename();
+            String imageType = image.getContentType();
+            byte[] imageBytes = image.getBytes();
 
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(imageType);
-        objectMetadata.setContentLength(imageBytes.length);
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(imageType);
+            objectMetadata.setContentLength(imageBytes.length);
 
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageBytes);
 
-        amazonS3.putObject("ebsher", imageName, inputStream, objectMetadata);
+            amazonS3.putObject("ebsher", imageName, inputStream, objectMetadata);
 
-        Image newImage = new Image();
-        newImage.setName(imageName);
-        newImage.setProject(projectRepo.findById(projectId).get());
-        newImage.setPath("https://s3.amazonaws.com/ebsher/" + imageName);
-        imageRepo.save(newImage);
+            Image newImage = new Image();
+            newImage.setName(imageName);
+            newImage.setProject(projectRepo.findById(projectId).get());
+            newImage.setPath("https://s3.amazonaws.com/ebsher/" + imageName);
+            imageRepo.save(newImage);
+        }
+
     }
 //
 //    public void deleteFile(String key) {

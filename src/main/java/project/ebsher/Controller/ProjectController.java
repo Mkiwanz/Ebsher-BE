@@ -3,6 +3,7 @@ package project.ebsher.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.ebsher.Entity.Project;
+import project.ebsher.Entity.dto.NewProject;
 import project.ebsher.Service.Impl.S3ServiceImpl;
 import project.ebsher.Service.ProjectService;
 import project.ebsher.Service.S3Service;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("api/v1/projects")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProjectController {
     //String projectPath = System.getProperty("user.dir");
     private final S3Service s3Service;
@@ -33,6 +35,11 @@ public class ProjectController {
         return projectService.findAllById(id);
     }
 
+    @PostMapping( consumes = "multipart/form-data")
+    public void AddNewProject(@RequestBody NewProject project) throws IOException {
+        projectService.addNewProject(project);
+    }
+
 //    @PostMapping("/{projectId}")
 //    public String uploadImage(@PathVariable Long projectId, @RequestParam("file") MultipartFile file) throws IOException {
 //        InputStream inputStream = file.getInputStream();
@@ -41,8 +48,8 @@ public class ProjectController {
 //    }
 
     @PostMapping("/{projectId}/images")
-    void uploadProjectImages(@RequestParam("image") MultipartFile image, @PathVariable(value = "projectId") long projectId) throws IOException {
-        s3Service.uploadProjectImages(projectId, image);
+    void uploadProjectImages(@RequestParam("images") List<MultipartFile> images, @PathVariable(value = "projectId") long projectId) throws IOException {
+        s3Service.uploadProjectImages(projectId, images);
     }
 //
 //    @GetMapping("/project/{projectId}")

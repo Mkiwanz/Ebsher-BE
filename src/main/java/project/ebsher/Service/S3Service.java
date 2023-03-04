@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface S3Service {
 
-    void uploadProjectImages(long projectId, MultipartFile image) throws IOException;
+    void uploadProjectImages(long projectId, List<MultipartFile> images) throws IOException;
 
 //    void deleteFile(String key);
 //
