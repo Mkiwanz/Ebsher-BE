@@ -18,10 +18,15 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String title;
+    @Column(columnDefinition = "text")
     String description;
+
+    @Column(columnDefinition = "text")
     String projectDescription;
     String location;
     LocalDate date;
+
+    @Column(columnDefinition = "text")
     String note;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
