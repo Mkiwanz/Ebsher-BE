@@ -35,9 +35,9 @@ public class ProjectController {
         return projectService.findAllById(id);
     }
 
-    @PostMapping( consumes = "multipart/form-data")
-    public void AddNewProject(@RequestBody NewProject project) throws IOException {
-        projectService.addNewProject(project);
+    @PostMapping
+    public long AddNewProject(@RequestBody NewProject project) throws IOException {
+        return projectService.addNewProject(project);
     }
 
 //    @PostMapping("/{projectId}")

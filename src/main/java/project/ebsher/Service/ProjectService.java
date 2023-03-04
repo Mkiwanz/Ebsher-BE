@@ -14,5 +14,5 @@ public interface ProjectService {
 
     Project findAllById(long id);
 
-    void addNewProject(NewProject project) throws IOException;
+    long addNewProject(NewProject project) throws IOException;
 }

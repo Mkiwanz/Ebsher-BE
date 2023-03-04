@@ -14,8 +14,8 @@ public interface ProjectRepo extends JpaRepository<Project, Long> {
 
     Project findAllById(long id);
 
-    @Query(value = "select max (p.id) from Project p")
-    Project findMaxId();
+    @Query("select max(e.id) from Project e")
+    long findMaxId();
 
 
 }

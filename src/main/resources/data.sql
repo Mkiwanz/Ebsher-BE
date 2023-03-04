@@ -11,9 +11,9 @@
 --   سرعة في التنفيذ ومصداقية بالتعامل  .','Kiwan Project');
 --
 
-
+--
 insert into project ("date", description, location, note, project_description, title)
-values (CURRENT_DATE, 'description', 'Amman', 'note 1', 'steeel', 'project 1'),
-       (CURRENT_DATE, 'description', 'Irbid', 'note 2', 'steeel', 'project 2'),
-       (CURRENT_DATE, 'description', 'Amman', 'note 3', 'steeel', 'project 3'),
-       (CURRENT_DATE, 'description', 'Amman', 'note 4', 'steeel', 'project 4');
+values (CURRENT_DATE, 'description', 'Amman', 'note 1', 'steeel', 'project 1');
+--        (CURRENT_DATE, 'description', 'Irbid', 'note 2', 'steeel', 'project 2'),
+--        (CURRENT_DATE, 'description', 'Amman', 'note 3', 'steeel', 'project 3'),
+--        (CURRENT_DATE, 'description', 'Amman', 'note 4', 'steeel', 'project 4');

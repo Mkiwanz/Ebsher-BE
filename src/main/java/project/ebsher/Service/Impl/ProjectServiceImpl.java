@@ -38,7 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void addNewProject(NewProject project) throws IOException {
+    public long addNewProject(NewProject project) throws IOException {
         Project newProject = new Project();
         newProject.setProjectDescription(project.getProjectDescription());
         newProject.setDescription(project.getDescription());
@@ -46,17 +46,32 @@ public class ProjectServiceImpl implements ProjectService {
         newProject.setDate(project.getDate());
         newProject.setTitle(project.getTitle());
         newProject.setLocation(project.getLocation());
-        List<Image> imagesList = new ArrayList<>();
-        for (MultipartFile file : project.getImages()) {
-            Image image = new Image();
-            image.setSize(file.getSize());
-            image.setName(file.getOriginalFilename());
-            image.setPath("https://s3.amazonaws.com/ebsher/" + file.getOriginalFilename());
-            image.setCreatedAt(LocalDateTime.now());
-            imagesList.add(image);
-        }
-        newProject.setImages(imagesList);
         projectRepo.save(newProject);
-        s3Service.uploadProjectImages(projectRepo.findMaxId().getId() + 1, project.getImages());
+        long projId = projectRepo.findMaxId();
+        return projId;
+
     }
+
+//    @Override
+//    public void addNewProject(NewProject project) throws IOException {
+//        Project newProject = new Project();
+//        newProject.setProjectDescription(project.getProjectDescription());
+//        newProject.setDescription(project.getDescription());
+//        newProject.setNote(project.getNote());
+//        newProject.setDate(project.getDate());
+//        newProject.setTitle(project.getTitle());
+//        newProject.setLocation(project.getLocation());
+//        List<Image> imagesList = new ArrayList<>();
+//        for (MultipartFile file : project.getImages()) {
+//            Image image = new Image();
+//            image.setSize(file.getSize());
+//            image.setName(file.getOriginalFilename());
+//            image.setPath("https://s3.amazonaws.com/ebsher/" + file.getOriginalFilename());
+//            image.setCreatedAt(LocalDateTime.now());
+//            imagesList.add(image);
+//        }
+//        newProject.setImages(imagesList);
+//        projectRepo.save(newProject);
+//        s3Service.uploadProjectImages(projectRepo.findMaxId().getId() + 1, project.getImages());
+//    }
 }
