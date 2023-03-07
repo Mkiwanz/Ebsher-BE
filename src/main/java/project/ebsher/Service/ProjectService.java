@@ -13,6 +13,7 @@ public interface ProjectService {
     List<Project> findAll();
 
     Project findAllById(long id);
+    void deleteProjectById(long id);
 
     long addNewProject(NewProject project) throws IOException;
 }

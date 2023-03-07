@@ -38,6 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public void deleteProjectById(long id) {
+        projectRepo.deleteById(id);
+    }
+
+    @Override
     public long addNewProject(NewProject project) throws IOException {
         Project newProject = new Project();
         newProject.setProjectDescription(project.getProjectDescription());
