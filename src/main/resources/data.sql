@@ -17,3 +17,7 @@ values (CURRENT_DATE, 'description', 'Amman', 'note 1', 'steeel', 'project 1');
 --        (CURRENT_DATE, 'description', 'Irbid', 'note 2', 'steeel', 'project 2'),
 --        (CURRENT_DATE, 'description', 'Amman', 'note 3', 'steeel', 'project 3'),
 --        (CURRENT_DATE, 'description', 'Amman', 'note 4', 'steeel', 'project 4');
+
+
+insert into users (email, name, password, username)
+values ('kiwan@gmail.com', 'kiwan', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2', 'kiwanz');
